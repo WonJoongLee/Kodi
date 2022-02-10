@@ -43,10 +43,6 @@ object Kodi : KodiInterface {
 
     data class DisassembledString(
         val originString: String, // 원래 String
-        val disassembledStringList: List<Char>, // 분해한 한글 리스트
-        val choList: List<Char>, // 초성 리스트
-        val joongList: List<Char>, // 중성 리스트
-        val jongList: List<Char>, // 종성 리스트
         val disassembledCharList: List<KoreanChar>
     )
 
@@ -56,11 +52,17 @@ object Kodi : KodiInterface {
         val jong: Char? = null
     )
 
+    /**
+     * 비교할 string 함수를 추가하는 함수
+     */
     override fun insertList(list: List<String>) {
         disassembledStringList = list.toDisassembledStringList()
     }
 
-    // 초성을 분리해서 match하는 것 모두 보여주기로
+    /**
+     * 사용자가 입력한 값과 일치하는 string이 있는지 확인하고,
+     * 있다면 해당 string들을 반환하는 함수
+     */
     override fun getMatchStrings(inputString: String): List<String> {
         val searchedString = mutableListOf<String>()
         disassembledStringList.forEach { currentDisassembledString ->
@@ -71,9 +73,8 @@ object Kodi : KodiInterface {
         return searchedString
     }
 
-    /***
-     * DisassembledString 타입으로 바꿔주는 함수
-     * 홍길동을 ㅎㅗㅇㄱㅣㄹㄷㅗㅇ 으로 나눠주는 작업을 하고 있다
+    /**
+     * String List -> DisassembledString List 변환 함수
      */
     private fun List<String>.toDisassembledStringList(): List<DisassembledString> {
         val tempDisassembledStringList = mutableListOf<DisassembledString>()
@@ -84,17 +85,7 @@ object Kodi : KodiInterface {
     }
 
     /**
-     * current string은 다음과 같은 것들이 될 수 있다.
-     * 홍길동을 검색하고 싶을 때, 사용자는 아래와 같은 것들을 입력할 것이다.
-     * ㅎ
-     * ㅎㄱ
-     * ㅎㄱㄷ
-     * 홍
-     * 홍길
-     * 홍길동
-     * input current
-     * ㅇ원ㅈ 이원중
-     * 잉ㅇ종 이원중
+     * 사용자가 찾으려고 한 string이 맞는지 확인하는 함수
      */
     private fun checkMatches(currentString: DisassembledString, inputString: DisassembledString): Boolean {
         inputString.disassembledCharList.zip(currentString.disassembledCharList) { inputKorean, currentKorean ->
@@ -115,11 +106,10 @@ object Kodi : KodiInterface {
         return true
     }
 
+    /**
+     * String -> DisassembledString 변환 함수
+     */
     private fun String.toDisassembledString(): DisassembledString {
-        val currentCharList = mutableListOf<Char>()
-        val currentChoList = mutableListOf<Char>()
-        val currentJoongList = mutableListOf<Char>()
-        val currentJongList = mutableListOf<Char>()
         val koreanCharList = mutableListOf<KoreanChar>()
         this.filterNot { it.isWhitespace() }.forEach { targetChar ->
             val currentHexValue = targetChar.code
@@ -129,65 +119,14 @@ object Kodi : KodiInterface {
                 val currentJoong = joongList[(diff / 28 % 21)]
                 val currentJong = jongList[(diff % 28)]
                 if (currentJong == null) {
-                    currentCharList.apply {
-                        add(currentCho)
-                        add(currentJoong)
-                    }
-                    currentChoList.add(currentCho)
-                    currentJoongList.add(currentJoong)
                     koreanCharList.add(KoreanChar(currentCho, currentJoong))
                 } else {
-                    currentCharList.apply {
-                        add(currentCho)
-                        add(currentJoong)
-                        add(currentJong)
-                    }
-                    currentChoList.add(currentCho)
-                    currentJoongList.add(currentJoong)
-                    currentJongList.add(currentJong)
                     koreanCharList.add(KoreanChar(currentCho, currentJoong, currentJong))
                 }
             } else {
-                currentChoList.add(targetChar)
-                currentCharList.add(targetChar)
                 koreanCharList.add(KoreanChar(targetChar))
             }
         }
-        return DisassembledString(
-            this,
-            currentCharList,
-            currentChoList,
-            currentJoongList,
-            currentJongList,
-            koreanCharList
-        )
-    }
-
-    private fun disassembleCharacter(targetChar: Char): List<Char> {
-        val currentHexValue = targetChar.code
-        val currentCharList = mutableListOf<Char>()
-        if (currentHexValue >= KOREAN_CHAR_START) {
-            val diff = currentHexValue - KOREAN_CHAR_START
-            val currentCho = choList[(diff / 28 / 21)]
-            val currentJoong = joongList[(diff / 28 % 21)]
-            val currentJong = jongList[(diff % 28)]
-            // isBlank()는 공백만 있을 때 true를 반환
-            return if (currentJong == null) {
-                currentCharList.apply {
-                    add(currentCho)
-                    add(currentJoong)
-                }
-            } else {
-                currentCharList.apply {
-                    add(currentCho)
-                    add(currentJoong)
-                    add(currentJong)
-                }
-            }
-        } else {
-            return currentCharList.apply {
-                add(targetChar)
-            }
-        }
+        return DisassembledString(this, koreanCharList)
     }
 }
