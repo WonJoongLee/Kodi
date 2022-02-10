@@ -13,10 +13,10 @@
        }
    }
    ```
-2. 사용하고자 하는 모듈에 `'com.github.WonJoongLee:kodi:0.2.0'` 의존성 추가
+2. 사용하고자 하는 모듈에 `'com.github.WonJoongLee:kodi:0.2.1'` 의존성 추가
    ```kotlin
    dependencies {  
-       implementation 'com.github.WonJoongLee:kodi:0.2.0' // <- 추가
+       implementation 'com.github.WonJoongLee:kodi:0.2.1' // <- 추가
    }
    ```
 
