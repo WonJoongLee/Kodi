@@ -2,7 +2,7 @@
 초성 검색을 지원하는 한국어 문자열 비교 라이브러리입니다.
 
 ## 다운로드
-1. `settings.gradle`에 추가 `maven { url "https://jitpack.io" }` 추가
+1. `settings.gradle`에 `maven { url "https://jitpack.io" }` 추가
    ```kotlin
    dependencyResolutionManagement {  
        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)  
@@ -22,8 +22,8 @@
 
 ## 예시
 ```kotlin
-val stringList = listOf("이철수", "김영희", "이원중", "홍길동", "황괅뒳") 
-val userInput = "ㅎㄱㄷ" 
+val stringList = listOf("이철수", "김영희", "이원중", "홍길동", "황괅뒳")
+val userInput = "ㅎㄱㄷ"
 Kodi.insertList(stringList)
 val result = Kodi.getMatchStrings(userInput)
 // result = ["홍길동", "황괅뒳"]
