@@ -1,4 +1,4 @@
-package Kodi
+package kodi
 
 data class DisassembledString(
     val originString: String, // 원래 String

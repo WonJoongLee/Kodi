@@ -1,4 +1,4 @@
-package Kodi
+package kodi
 
 data class KoreanChar(
     val cho: Char,

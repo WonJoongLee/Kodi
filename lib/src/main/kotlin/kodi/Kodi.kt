@@ -1,4 +1,4 @@
-package Kodi
+package kodi
 
 import KodiInterface
 

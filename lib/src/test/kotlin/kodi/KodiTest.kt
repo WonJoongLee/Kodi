@@ -1,6 +1,6 @@
 import org.junit.Test
 import kotlin.test.assertEquals
-import Kodi.Kodi
+import kodi.Kodi
 
 class KodiTest {
     @Test
