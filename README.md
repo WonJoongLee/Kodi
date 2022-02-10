@@ -24,8 +24,8 @@
 ```kotlin
 val stringList = listOf("이철수", "김영희", "이원중", "홍길동", "황괅뒳")
 val userInput = "ㅎㄱㄷ"
-kodi.insertList(stringList)
-val result = kodi.getMatchStrings(userInput)
+Kodi.insertList(stringList)
+val result = Kodi.getMatchStrings(userInput)
 // result = ["홍길동", "황괅뒳"]
 ```
 `ㅎㄱㄷ` 뿐만 아니라 `홍ㄱㄷ`, `ㅎ길ㄷ` 등 초성이 중간에 섞여 있어도 검색이 가능합니다.
