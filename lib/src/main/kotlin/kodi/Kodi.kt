@@ -1,7 +1,5 @@
 package kodi
 
-import KodiInterface
-
 object Kodi : KodiInterface {
 
     private const val KOREAN_CHAR_START = 44032 // 유니코드에서 '가'의 위치
