@@ -41,17 +41,6 @@ object Kodi : KodiInterface {
         'ㅎ'
     )
 
-    data class DisassembledString(
-        val originString: String, // 원래 String
-        val disassembledCharList: List<KoreanChar>
-    )
-
-    data class KoreanChar(
-        val cho: Char,
-        val joong: Char? = null,
-        val jong: Char? = null
-    )
-
     /**
      * 비교할 string 함수를 추가하는 함수
      */
