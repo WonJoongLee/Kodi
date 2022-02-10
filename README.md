@@ -6,6 +6,7 @@ Kodi는 Korean Disassembler의 약자입니다.
 추가 예정
 
 ## 예시
+사용자가 `홍길동`을 검색하기 위해 `ㅎㄱㄷ`을 입력한 경우를 가정했습니다.
 ```kotlin
 val stringList = listOf("이철수", "김영희", "이원중", "홍길동", "황괅뒳") 
 val userInput = "ㅎㄱㄷ" 
