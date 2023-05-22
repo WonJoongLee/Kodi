@@ -1,5 +1,6 @@
 # kodi
 초성 검색을 지원하는 한국어 문자열 비교 라이브러리입니다.
+A Korean string comparison library that supports Korean initial sound search.
 
 ## 다운로드
 1. `settings.gradle`에 `maven { url "https://jitpack.io" }` 추가
